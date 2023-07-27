@@ -1,0 +1,77 @@
+@font-face {
+  font-family: Rajdhani-Medium;
+  src: url(./Rajdhani-Medium.woff);
+}
+
+h1 {
+  color: white;
+}
+
+#profile-picture {
+  position: absolute;
+  margin: 0;
+  top: 86.5px;
+  left: 43px;
+  width: 129.1px;
+  height: 170px;
+  object-fit: cover;
+}
+
+#family-name {
+  position: absolute;
+  margin: 0;
+  color: white;
+  font-size: 45px;
+  top: 272.5px;
+  left: 105px;
+  font-family: Rajdhani-Medium;
+}
+
+#first-name {
+  position: absolute;
+  margin: 0;
+  color: white;
+  top: 319.5px;
+  left: 105px;
+  font-family: Rajdhani-Medium;
+}
+
+#position {
+  position: absolute;
+  margin: 0;
+  color: white;
+  top: 382px;
+  left: 105px;
+  font-family: Rajdhani-Medium;
+}
+
+input {
+  width: 100%;
+  box-sizing:border-box;
+  padding: 10px;
+  margin-bottom: 5px;
+  outline: 0;
+  border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    height: 40px;
+    background-color: rgb(28, 70, 113);
+    border: none;
+    color: white;
+}
+
+
+.input-boxes {
+  width: 45vw;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width:670px){
+  .input-boxes {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}

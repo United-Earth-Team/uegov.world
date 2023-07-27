@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>流浪地球2 | UEG名牌生成</title>
+    <link rel="stylesheet" type="text/css" href="index.css" />
+  </head>
+
+  <body style="background-color: rgb(3, 27, 44)">
+    <div style="display: flex; width: 100%">
+      <img
+        src="https://s1.ax1x.com/2023/01/28/pSU7nLq.png"
+        style="width: 79px; margin: 0 auto"
+      />
+    </div>
+    <div
+      style="width: 360px; margin: 0 auto; margin-top: 20px; position: relative"
+      id="all"
+    >
+      <img
+        src="./background.png"
+        alt=""
+        style="
+          width: 360px;
+          height: 100%;
+          background-image: url('./background.png');
+        "
+      />
+      <img id="profile-picture" src="./LiXuejian.png" />
+      <h1 id="family-name">ZHOU</h1>
+      <h2 id="first-name">ZHEZHI</h2>
+      <h3 id="position">PERMANENT REPRESENTATIVE</h3>
+      <div
+        style="
+          background-color: rgb(7, 52, 97);
+          padding-top: 0.5px;
+          padding-bottom: 0.5px;
+          padding-left: 8px;
+          padding-right: 8px;
+        "
+      >
+        <h5 style="text-align: center; color: white">
+          由 架空UEG网站 生成<br />访问 uegov.world/ueg-card
+        </h5>
+      </div>
+    </div>
+
+    <div class="input-boxes">
+    <h1>输入定制信息</h1>
+    <input type="file" id="upload" style="color: white" />
+    <input type="text" placeholder="姓" id="input-family-name" />
+    <input type="text" placeholder="名" id="input-first-name" />
+    <input type="text" placeholder="职位" id="input-position" />
+
+    <button onclick="start()">生成</button>
+    <a href="" download style="display: none" id="download"></a>
+    </div>
+    <script src="./html2canvas.min.js"></script>
+    <script>
+      async function start() {
+        document.getElementById("family-name").innerText =
+          document.getElementById("input-family-name").value;
+        document.getElementById("first-name").innerText =
+          document.getElementById("input-first-name").value;
+        document.getElementById("position").innerText =
+          document.getElementById("input-position").value;
+        await html2canvas(document.getElementById("all"), { scale: 2 }).then(
+          async function (canvas) {
+            canvas = canvas.toDataURL("image/jpeg", 2);
+            console.log(canvas);
+            document.getElementById("download").setAttribute("href", canvas);
+            document.getElementById("download").click();
+          }
+        );
+      }
+      document
+        .getElementById("upload")
+        .addEventListener("change", function (e) {
+          let reader = new FileReader();
+          reader.readAsDataURL(document.getElementById("upload").files[0]);
+          reader.onload = function (r) {
+            document
+              .getElementById("profile-picture")
+              .setAttribute("src", reader.result);
+          };
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/def.css">
+    <link rel="stylesheet" type="text/css" href="css/gen.css">
+    <title>地下城居住资格抽签</title>
+</head>
+<body>
+<div class="nav row items-center space-between">
+    <p class="text-size-10">地下城居住资格抽签</p>
+    <div class="nav-actions row items-center height-100">
+        <a href="javascript:savePicture()"><img src="./save.png" class="img-fix" alt="uegov.world"/></a>
+        <a href="https://uegov.world/"><img src="https://ueg-1300089193.cos.ap-nanjing.myqcloud.com/2023/01/20230128063154681-300x300.png" class="img-fix" alt="uegov.world"/></a>
+    </div>
+</div>
+<main id="main">
+    <div class="title">
+        <img src="./ueg-black.png" alt="logo">
+        <div>
+            <h1 id="title" class="text-size-14"></h1>
+            <h1 class="text-size-12">地下城居住资格抽签结果<a class="text-color-6">*</a></h1>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-title">
+            Profile
+        </div>
+        <div class="card-content">
+            <div>
+                <p class="no-wrap mr-6">姓名</p>
+                <p id="name"></p>
+            </div>
+            <div>
+                <p class="no-wrap mr-6">年龄</p>
+                <p id="age"></p>
+            </div>
+            <div>
+                <p class="no-wrap mr-6">身份ID</p>
+                <p id="cid"></p>
+            </div>
+            <div>
+                <p class="no-wrap mr-6">性别</p>
+                <p id="gender"></p>
+            </div>
+            <div>
+                <p class="no-wrap mr-6">申报内容</p>
+                <p>地下城市居住资格抽签[第1次]</p>
+            </div>
+            <div>
+                <p class="no-wrap mr-6">地区</p>
+                <p id="loc">中华人民共和国-黑龙江-哈尔滨01</p>
+            </div>
+            <div>
+                <p class="no-wrap mr-6">抽签号</p>
+                <p id="drawid"></p>
+            </div>
+        </div>
+    </div>
+    <div class="desc text-color-6">
+        <p class="row">个人资料审核<a class="text-color-8 text-bold">已经通过。</a></p>
+        <p>如果您对个人资料有异议，<a href="#" class="text-color-8 text-bold text-underline">点击此处发起申诉。</a></p>
+    </div>
+    <div id="status"></div>
+    <div id="status-describe" class="card-content column items-center status-msg">
+        <p>恭喜您！已获得居住 <a id="base"></a> 地下城场所资格。</p>
+    </div>
+    <div class="card" id="qr-tips">
+        <div class="card-title">
+            QRCode
+        </div>
+        <div class="card-content">
+            <div>
+                <div id="qr"></div>
+                <div class="column text-color-8">
+                    <p>凭此QRCode进入地下城。</p>
+                    <p>迁移具体时间将于近期通知手机号码+86 <a id="phone">11122223333</a>，请您提前做好准备。</p>
+                    <a class="text-bold self-end" href="#">此手机号不再使用？</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="desc text-color-6">
+        <p>*：居住资格不能售卖、转让、赠送和交换。</p>
+        <p>一旦发现名额失效，终身禁止抽签。</p>
+        <p>更多信息请参阅：<a class="text-bold text-color-8 text-underline" href="https://uegov.world/">https://uegov.world/</a></p>
+        <p>&copy; UEG 2058 保留一切最终解释权利。</p>
+    </div>
+</main>
+<a id="download" download="" target="_blank" rel="noreferrer" style="display: none;"></a>
+</body>
+<script type="text/javascript" src="qrcode.min.js"></script>
+<script type="text/javascript" src="html2canvas.min.js"></script>
+<script>
+    let drawMin = 100000000000
+    let drawMax = 999999999999
+    let idMin = 100000000000000000
+    let idMax = 999999999999999999
+    let phoneMin = 1111
+    let phoneMax = 9999
+    function rand(min=0, max=1){
+        return Math.floor(Math.random()*(max-min+1)+min)
+    }
+    function getResult(age){
+        const r = rand(0,100)
+        //alert(r)
+        if(age>=80){
+            return r > 90;
+        }
+        if(80>age&&age>=30){
+            return r > 50;
+        }
+        if(age<30){
+            return r > 5;
+        }
+        return true
+    }
+    const Gender = [
+        "Male (男性)",
+        "Female (女性)",
+        "Unknown (未知)"
+    ]
+    class Profile{
+        name = ""
+        id
+        phone
+        gender = Gender[2]
+        age
+        location = "中华人民共和国"
+        drawId
+        status = false
+        //raw
+        constructor(name, gender, age, location, phone="") {
+            this.name = name
+            this.gender = Gender[gender]
+            this.age = age
+            this.location = location
+            this.drawId = rand(drawMin, drawMax)
+            this.id = rand(idMin,idMax)
+            if(phone !== "" && phone.trim().length === 11){
+                this.phone = phone.substring(0,3) + "****" + phone.substring(7)
+            }else{
+                this.phone = "*******" + rand(phoneMin,phoneMax)
+            }
+            this.status = getResult(age)
+            //this.raw = `UNITED EARTH GOVERNMENT抽签记录\nNUMBER：${this.drawId}\n地区：${this.location}\n申报人员：${this.name}\n身份识别码：${this.id}`
+        }
+    }
+    function showResult(profile){
+        console.log(profile)
+        document.querySelector("#title").innerText = document.querySelector("#name").innerText = profile.name
+        document.querySelector("#age").innerText = profile.age
+        document.querySelector("#cid").innerText = profile.id
+        document.querySelector("#gender").innerText = profile.gender
+        document.querySelector("#phone").innerText = profile.phone
+        document.querySelector("#loc").innerText = document.querySelector("#base").innerText = profile.location
+        document.querySelector("#drawid").innerText = profile.drawId
+        document.querySelector("#status").innerText = profile.status ? "已中签" : "未中签"
+        const q = new QRCode("qr", {
+            width: 128,
+            height: 128,
+            correctLevel: 2
+        })
+        document.querySelector("#status-describe").style.display = document.querySelector("#qr-tips").style.display = profile.status ? "flex" : "none"
+        q.makeCode(profile.id.toString())
+    }
+
+    function tryGetParam(params, prop){
+        if(params.has(prop)){
+            return params.get(prop)
+        }
+        return ""
+    }
+
+    async function savePicture() {
+        await html2canvas(document.querySelector("#main"), { scale: 2 }).then(
+            async function (canvas) {
+                canvas = canvas.toDataURL("image/jpeg", 1);
+                console.log(canvas);
+                document.getElementById("download").setAttribute("href", canvas);
+                document.getElementById("download").click();
+            }
+        );
+    }
+
+    const urlParams = new URL(window.location.href).searchParams
+    //
+    const age = Number(tryGetParam(urlParams, 'age'))
+    let prof = new Profile(
+        tryGetParam(urlParams, 'name'),
+        Number(tryGetParam(urlParams, 'gender')),
+        age,
+        tryGetParam(urlParams, 'loc'),
+        tryGetParam(urlParams, 'phone'),
+    )
+    showResult(prof)
+</script>
+</html>

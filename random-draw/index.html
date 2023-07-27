@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/def.css">
+    <title>流浪地球2 | 地下城居住资格抽签</title>
+    <style>
+        body{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .form{
+            margin: auto;
+            width: 85vw;
+        }
+        .form label{
+            color: #fff;
+        }
+        input, select{
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            outline: 0;
+            border: 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body style="background-color: #031B2C;">
+<form class="form column contents-center gap-8" method="get" action="gen.html">
+    <label for="name">姓名</label><input type="text" placeholder="姓名" name="name" id="name" required/>
+    <label for="age">年龄</label><input type="number" placeholder="年龄" step="1" min="0" onkeyup="this.value=this.value.match(/\d+(\.\d{0,2})?/)?this.value.match(/\d+(\.\d{0,2})?/)[0]:''" name="age" id="age" required/>
+    <label for="loc">位置</label><input type="text" placeholder="地区" value="中华人民共和国" name="loc" id="loc" required/>
+    <label for="gender">性别</label>
+    <select id="gender" name="gender" required>
+        <option value="0">男性</option><option value="1">女性</option>
+    </select>
+    <label for="phone">电话号码 *仅用于生成</label><input type="tel" placeholder="电话号码" minlength="11" name="phone" id="phone"/>
+    <input type="submit" value="生成抽签结果">
+</form>
+</body>
+</html>

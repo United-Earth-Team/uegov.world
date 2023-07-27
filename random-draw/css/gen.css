@@ -1,0 +1,137 @@
+:root{
+    --ueg-bg: #031B2C;
+    --ueg-fg: #FFF;
+    --el-bg: #3173D7;
+    --el-fg: #FFF;
+    --card-bg: #EAEAEA;
+    --card-fg: #000;
+
+    --nav-height: 3rem;
+    --nav-padding: 1rem;
+    --nav-gap: 0.5rem;
+    --main-padding: 1rem;
+    --main-width: 50rem;
+    --main-gap:0.5rem;
+    --card-padding: 0.6rem;
+}
+
+html{
+    background-color: var(--ueg-bg);
+    overflow-x: hidden;
+}
+
+body{
+    background-color: var(--ueg-fg);
+    font-family: "Noto Sans SC", sans-serif;
+    max-width: calc(var(--main-width) - var(--main-padding) * 2);
+    margin: auto;
+}
+
+.nav{
+    position: sticky;
+    top: 0;
+    width: calc(100% - var(--nav-padding)*2);
+    height: var(--nav-height);
+    background-color: #000000;
+    color: #fff;
+    padding: 0 var(--nav-padding);
+    z-index: 999;
+}
+
+.nav-actions{
+    height: 100%;
+}
+
+.nav-actions a{
+    height: 2rem;
+}
+
+.nav-actions a:not(:first-child){
+    margin-left: var(--nav-gap);
+}
+
+main{
+    padding: var(--main-padding);
+    min-height: calc(100vh - var(--main-padding) * 2 - var(--nav-height));
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+main>div:not(:first-child){
+    margin-top: var(--main-gap);
+}
+
+.title{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.title img{
+    display: block;
+    height: 5.6rem;
+    width: auto;
+    aspect-ratio: auto;
+}
+
+.desc{
+    font-size: 1.1rem;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    font-weight: bold;
+}
+
+.card-title{
+    background-color: var(--el-bg);
+    padding: 0.5rem 0.8rem;
+    color: var(--el-fg);
+    font-size: 1.3rem;
+}
+
+.card-content{
+    position: relative;
+    background-color: var(--card-bg);
+    padding: var(--card-padding);
+    color: var(--card-fg);
+    width: calc(100% - var(--card-padding) * 2);
+    font-size: 1.2rem;
+}
+
+.card-content>div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-content div:not(:last-child){
+    margin-bottom: 0.6rem;
+}
+
+#status{
+    text-align: center;
+    font-size: 3.2rem;
+    font-weight: bold;
+    color: var(--el-bg);
+}
+
+.status-msg p{
+    color: #777;
+    font-weight: bold;
+}
+
+#qr{
+    margin-right: var(--card-padding);
+}
+
+#qr *{
+    width: 6rem;
+    height: 6rem;
+}
