@@ -1,1 +1,1 @@
-# uet.life
+# uegov.world
